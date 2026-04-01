@@ -5,12 +5,13 @@ import {
   getUserWatchlist,
   updateWatchlistItem,
 } from "../controllers/watchlistsController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const watchlistsRoutes = Router();
 
-watchlistsRoutes.post("/movies/add-to-watchlist", addMovieToWatchlist);
-watchlistsRoutes.get("/movies/:id", getUserWatchlist);
-watchlistsRoutes.delete("/movies/:id", deleteMovieFromWatchlist);
-watchlistsRoutes.patch("/movies/:id", updateWatchlistItem);
+watchlistsRoutes.post("/movies/add-to-watchlist", protect, addMovieToWatchlist);
+watchlistsRoutes.get("/movies/watchlist", protect, getUserWatchlist);
+watchlistsRoutes.delete("/movies/:id", protect, deleteMovieFromWatchlist);
+watchlistsRoutes.patch("/movies/:id", protect, updateWatchlistItem);
 
 export default watchlistsRoutes;

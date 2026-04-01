@@ -7,13 +7,13 @@ const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 
 export const addMovieToWatchlist = async (req, res) => {
   try {
-    const { userId, tmdbId } = req.body;
+    const userId = req.token.id;
+    const { tmdbId } = req.body;
 
-    if (!userId || !tmdbId) {
+    if (!tmdbId) {
       return res.status(400).json({
         success: false,
-
-        message: "userId and tmdbId are required",
+        message: "tmdbId is required",
       });
     }
 
@@ -120,14 +120,7 @@ export const addMovieToWatchlist = async (req, res) => {
 
 export const getUserWatchlist = async (req, res) => {
   try {
-    const user_id = parseInt(req.params.id, 10);
-
-    if (!user_id) {
-      return res.status(400).json({
-        success: false,
-        message: "userId is required",
-      });
-    }
+    const user_id = req.token.id;
 
     const user = await Users.findByPk(user_id);
 
