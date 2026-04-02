@@ -154,3 +154,7 @@ watchlist-backend/
 ├── .env.example         # Environment variables template
 └── package.json
 ```
+
+## Team Members
+Rishikesh Patel
+Max Reed
