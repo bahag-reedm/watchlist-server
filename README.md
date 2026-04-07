@@ -16,6 +16,7 @@ A RESTful API built with Express.js for managing a personal movie watchlist. Sup
 - Node.js (v18+)
 - PostgreSQL database
 - TMDB API key ([get one here](https://developer.themoviedb.org/docs/getting-started))
+- [Frontend](https://github.com/bahag-patelr/movie-watchlist-client)
 
 ## Getting Started
 
