@@ -157,5 +157,5 @@ watchlist-backend/
 ```
 
 ## Team Members
-Rishikesh Patel
+Rishikesh Patel    
 Max Reed
