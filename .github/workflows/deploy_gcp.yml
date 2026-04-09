@@ -10,7 +10,7 @@ env:
   REGION: europe-west1
   REPO: movies-max
   IMAGE: movies-api-max
-  SERVICE: recipes-api-max
+  SERVICE: movies-api-max
 
 jobs:
   build-and-test:
