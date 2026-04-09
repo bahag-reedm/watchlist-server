@@ -9,5 +9,13 @@ const db_host = process.env.DB_HOST;
 const db_port = process.env.DB_PORT;
 
 export const sequelize = new Sequelize(
-  `${dialect}://${db_user}:${db_password}@${db_host}:${db_port}/${db_name}`,
+  `${dialect}://${encodeURIComponent(db_user)}:${encodeURIComponent(db_password)}@${db_host}:${db_port}/${db_name}`,
+  {
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  },
 );

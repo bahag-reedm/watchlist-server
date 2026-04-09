@@ -2,6 +2,14 @@
 
 A RESTful API built with Express.js for managing a personal movie watchlist. Supports user authentication (JWT), CRUD operations on watchlists, movie search via TMDB, and user comments/ratings.
 
+## Run
+
+You must create a .env file following the [example](.env.example).
+
+```bash
+docker run --env-file .env bahagreedm/watchlist-backend
+```
+
 ## Tech Stack
 
 - **Runtime:** Node.js
