@@ -2,9 +2,9 @@ name: CI/CD
 
 on:
   push:
-    branches: [max]
+    branches: [main]
   pull_request:
-    branches: [max]
+    branches: [main]
 
 env:
   REGION: europe-west1
