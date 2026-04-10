@@ -34,6 +34,10 @@ yarn-error.log*
 .env
 .env.deploy.yml
 cmd.tx
+terraform.tfvars
+.terraform/
+*.tfstate
+*.tfstate.backup
 
 # vercel
 .vercel
