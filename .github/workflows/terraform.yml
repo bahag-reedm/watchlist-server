@@ -8,6 +8,10 @@ on:
   pull_request:
     paths:
       - 'terraform/**'
+  workflow_run:
+    workflows: ["CI/CD"]
+    types: [completed]
+    branches: [main]
 
 env:
   REGION: europe-west1
@@ -17,6 +21,7 @@ env:
 
 jobs:
   terraform:
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' || github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -45,7 +50,7 @@ jobs:
             -var="api_key=${{ secrets.TMDB_BEARER_TOKEN}}"
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_run')
         run: |
           terraform apply -auto-approve \
             -var="project_id=${{ secrets.GCP_PROJECT_ID }}" \
@@ -54,7 +59,7 @@ jobs:
             -var="api_key=${{ secrets.TMDB_BEARER_TOKEN}}"
 
       - name: Capture backend URL
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_run')
         id: get_url
         run: |
           API_URL=$(gcloud run services describe ${{ env.BACKEND_SERVICE }} \
@@ -63,11 +68,11 @@ jobs:
           echo "api_url=$API_URL" >> $GITHUB_OUTPUT
 
       - name: Configure Docker for Artifact Registry
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_run')
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
       - name: Build and push frontend image
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_run')
         working-directory: ../watchlist-client
         run: |
           docker build --platform linux/amd64 \
