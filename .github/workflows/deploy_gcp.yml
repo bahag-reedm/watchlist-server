@@ -8,9 +8,9 @@ on:
 
 env:
   REGION: europe-west1
-  REPO: movies-max
-  IMAGE: movies-api-max
-  SERVICE: movies-api-max
+  REPO: movies-max-repo
+  IMAGE: movies-max-api
+  SERVICE: movies-max-api
 
 jobs:
   build-and-test:
